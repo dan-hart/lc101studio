@@ -13,11 +13,41 @@ public class MenuItem {
         this.isNew = isNew;
     }
 
+    public static String[] categories = {"Appetizer", "Entree", "Dessert", "Drink"};
+    public static String[] appetizers = {"Wings", "Fries", "Salad", "Soup"};
+    public static String[] entrees = {"Steak", "Chicken", "Pasta", "Fish"};
+    public static String[] desserts = {"Cake", "Pie", "Ice Cream", "Cupcakes"};
+    public static String[] drinks = {"Water", "Soda", "Beer", "Wine"};
+
     public MenuItem() {
-        this.price = 0.00;
-        this.description = "No description";
-        this.category = "No category";
-        this.isNew = false;
+        this.price = Math.random() * 20;
+        // Get random category from categories array
+        int randomCategory = (int) (Math.random() * categories.length);
+        this.category = categories[randomCategory];
+        switch (randomCategory) {
+            case 0:
+                // Get random appetizer from appetizers array
+                int randomAppetizer = (int) (Math.random() * appetizers.length);
+                this.description = appetizers[randomAppetizer];
+                break;
+            case 1:
+                // Get random entree from entrees array
+                int randomEntree = (int) (Math.random() * entrees.length);
+                this.description = entrees[randomEntree];
+                break;
+            case 2:
+                // Get random dessert from desserts array
+                int randomDessert = (int) (Math.random() * desserts.length);
+                this.description = desserts[randomDessert];
+                break;
+            case 3:
+                // Get random drink from drinks array
+                int randomDrink = (int) (Math.random() * drinks.length);
+                this.description = drinks[randomDrink];
+                break;
+        }
+        // get random boolean for isNew
+        this.isNew = Math.random() < 0.5;
     }
 
     public void setPrice(double price) {
