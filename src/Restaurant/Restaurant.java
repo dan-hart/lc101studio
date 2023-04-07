@@ -12,26 +12,15 @@ public class Restaurant {
     Delete an item from a menu, then reprint the menu.
      */
     public static void main(String[] args) {
-        MenuItem newItem1 = new MenuItem(4.99, "Garlic linguine", "Dinner", true);
-        MenuItem newItem2 = new MenuItem(6.99, "Really good steak", "Dinner", false);
-        MenuItem newItem3 = new MenuItem(2.99, "Delicious wings", "Appetizer", true);
+        // Get 20 menu items in for loop
+        Menu startingMenu = new Menu();
+        for (int i = 0; i < 20; i++) {
+            startingMenu.addItem(new MenuItem());
+        }
+        Restaurant ourRestaurant = new Restaurant(startingMenu);
 
-        Date today = Calendar.getInstance().getTime();
-        ArrayList<MenuItem> startingMenu = new ArrayList<>();
-
-        Menu ourMenu = new Menu(today, startingMenu);
-
-        ourMenu.addItem(newItem1);
-        ourMenu.addItem(newItem2);
-        ourMenu.addItem(newItem3);
-
-        ourMenu.printMenu();
-
-        ourMenu.printItem(newItem2);
-
-        ourMenu.removeItem(newItem2);
-
-        ourMenu.printMenu();
+        System.out.println("Our restaurant's menu:");
+        ourRestaurant.getMenu().getLineItemList(true);
     }
 
     Menu menu;
@@ -44,12 +33,22 @@ public class Restaurant {
         this.menu = menu;
     }
 
-    public void addMenuItem(MenuItem item) {
-        this.menu.addItem(item);
+    public boolean addMenuItem(MenuItem item) {
+        if (this.menu.getItems().contains(item)) {
+            // System.out.println(item.getDescription() + " is already on the menu!");
+            return false;
+        } else {
+            this.menu.addItem(item);
+            return true;
+        }
     }
 
     public void removeMenuItem(MenuItem item) {
-        this.menu.removeItem(item);
+        if (this.menu.getItems().contains(item)) {
+            this.menu.removeItem(item);
+        } else {
+            // System.out.println("That item is not on the menu!");
+        }
     }
 
     public Restaurant() {
@@ -63,6 +62,4 @@ public class Restaurant {
     public Restaurant(ArrayList<MenuItem> items) {
         this.menu = new Menu(Calendar.getInstance().getTime(), items);
     }
-
-
 }

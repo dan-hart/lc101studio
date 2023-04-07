@@ -47,7 +47,8 @@ public class MenuItem {
                 break;
         }
         // get random boolean for isNew
-        this.isNew = Math.random() < 0.5;
+        // 10% chance of being true
+        this.isNew = Math.random() < 0.1;
     }
 
     public void setPrice(double price) {
@@ -79,7 +80,12 @@ public class MenuItem {
     }
 
     public String getLineItem() {
-        return (this.getIsNew() + this.description + " - " + this.price);
+        // round price to two decimal places
+        if (this.isNew) {
+            return (this.description + " - " + String.format("$%.2f", this.price) + " - " + this.isItemNew());
+        } else {
+            return (this.description + " - " + String.format("$%.2f", this.price));
+        }
     }
 
     public boolean getIsNew() {
@@ -88,27 +94,25 @@ public class MenuItem {
 
     public String isItemNew() {
         if (this.isNew) {
-            return ("New! - ");
+            return ("New!");
         }
         else {
             return ("");
         }
     }
 
-    public boolean equals(MenuItem comparison) {
+    @Override
+    public boolean equals(Object comparison) {
         if (comparison == this) {
             return true;
         }
-
         if (comparison == null) {
             return false;
         }
-
         if (comparison.getClass() != getClass()) {
             return false;
         }
-
         MenuItem theItem = (MenuItem) comparison;
-        return theItem.getDescription() == getDescription();
+        return theItem.getDescription().equals(getDescription());
     }
 }

@@ -8,6 +8,11 @@ public class Menu {
     private Date lastUpdated;
     private ArrayList<MenuItem> items;
 
+    public Menu() {
+        this.lastUpdated = Calendar.getInstance().getTime();
+        this.items = new ArrayList<>();
+    }
+
     public Menu(Date dateUpdated, ArrayList<MenuItem> item) {
         this.lastUpdated = dateUpdated;
         this.items = item;
@@ -32,7 +37,7 @@ public class Menu {
 
     public ArrayList<MenuItem> addItem(MenuItem item) {
         if (this.items.contains(item)) {
-            System.out.println(item.getDescription() + " is already on the menu!");
+            // System.out.println(item.getDescription() + " is already on the menu!");
         } else {
             this.items.add(item);
             this.setLastUpdated(Calendar.getInstance().getTime());
@@ -65,5 +70,16 @@ public class Menu {
         for (int i = 0; i < items.size(); i++) {
             System.out.println(items.get(i).getDescription());
         }
+    }
+
+    public String[] getLineItemList(boolean printLineItems) {
+        String[] lineItems = new String[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            lineItems[i] = items.get(i).getLineItem();
+            if (printLineItems) {
+                System.out.println(lineItems[i]);
+            }
+        }
+        return lineItems;
     }
 }
